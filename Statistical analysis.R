@@ -64,7 +64,7 @@ exp(coef(model))
 #create a function to extract model result
 odds_data <- function(model) {
   coef_table <- summary(model)$coefficients
-  odds <- exp(coef_table[-1, "Estimate"])  # Exclude intercept
+  odds <- exp(coef_table[-1, "Estimate"])  
   ci_lower <- exp(coef_table[-1, "Estimate"] - 1.96 * coef_table[-1, "Std. Error"])
   ci_upper <- exp(coef_table[-1, "Estimate"] + 1.96 * coef_table[-1, "Std. Error"])
   p_values <- coef_table[-1, "Pr(>|z|)"]
@@ -92,14 +92,13 @@ model_plot <- ggplot(model_data, aes(y = Variable, x = OR)) +
        x = "Odds Ratio (log scale)",
        y = "") +
   theme(
-    panel.background = element_blank(),   # Remove the panel background
-    plot.background = element_blank(),     # Remove the plot background
-    panel.grid.major = element_blank(),    # Remove major grid lines
-    panel.grid.minor = element_blank(),    # Remove minor grid lines
-    axis.line = element_line(color = "black"), # Add axis lines if desired
-    plot.title = element_text(hjust = 0.5), # Center the title
-    plot.subtitle = element_text(hjust = 0.5) # Center the subtitle
-  )+
+    panel.background = element_blank(),   
+    plot.background = element_blank(),    
+    panel.grid.major = element_blank(),   
+    panel.grid.minor = element_blank(),    
+    axis.line = element_line(color = "black"),
+    plot.title = element_text(hjust = 0.5), 
+    plot.subtitle = element_text(hjust = 0.5)  )+
   geom_text(aes(label = sprintf("%.2f (%.2f-%.2f)", OR, CI_lower, CI_upper)),
             hjust = -0.2, vjust = 0.5, size = 3)
 
